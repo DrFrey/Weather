@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/details_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/details_date"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Today" />
+
+    <TextView
+        android:id="@+id/details_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/lightGray"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/details_day"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="June 19"/>
+
+    <TextView
+        android:id="@+id/details_day_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:textSize="96sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/details_date"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        tools:text="22\u00B0"/>
+
+    <TextView
+        android:id="@+id/details_night_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:textSize="48sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/details_day_temp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="40dp"
+        tools:text="13\u00B0"/>
+
+    <ImageView
+        android:id="@+id/details_pic"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:src="@drawable/ic__21_sun"
+        app:layout_constraintStart_toEndOf="@id/details_day_temp"
+        app:layout_constraintTop_toTopOf="@id/details_day_temp"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:id="@+id/details_forecast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="@color/lightGray"
+        android:fontFamily="sans-serif-condensed"
+        app:layout_constraintTop_toBottomOf="@id/details_pic"
+        app:layout_constraintStart_toStartOf="@id/details_pic"
+        app:layout_constraintEnd_toEndOf="@id/details_pic"
+        tools:text="Clear" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
