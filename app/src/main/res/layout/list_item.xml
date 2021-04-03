@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/list_pic"
@@ -16,7 +16,9 @@
     <LinearLayout
         android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/list_date"
@@ -41,7 +43,8 @@
     <LinearLayout
         android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/list_day_temp"

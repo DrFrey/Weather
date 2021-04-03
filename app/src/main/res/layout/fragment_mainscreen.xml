@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -13,12 +13,33 @@
         android:orientation="vertical"
         android:weightSum="100">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/Theme.Weather"
+            app:navigationIcon="@drawable/ic__21_sun_logo">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="22sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="30"
-            android:orientation="horizontal"
-            android:background="?attr/colorPrimary">
+            android:background="?attr/colorPrimary"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/currentWeatherTextLL"
@@ -34,9 +55,9 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center_vertical"
+                    android:text="Today, June 18"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="22sp"
-                    android:text="Today, June 18"
                     tools:text="Today, June 18" />
 
                 <TextView
@@ -45,9 +66,9 @@
                     android:layout_weight="2"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center_vertical"
+                    android:text="22\u00B0"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="72sp"
-                    android:text="22\u00B0"
                     tools:text="22\u00B0" />
 
                 <TextView
@@ -56,42 +77,43 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center_vertical"
+                    android:text="13\u00B0"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="36sp"
-                    android:text="13\u00B0"
                     tools:text="13\u00B0" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/currentWeatherPicLL"
-                android:layout_width="125dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic__21_sun"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic__21_sun" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center"
-                    android:textColor="?attr/colorOnPrimary"
                     android:paddingTop="20dp"
-                    android:textSize="22sp"
                     android:text="Clear"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="22sp"
                     tools:text="Clear" />
             </LinearLayout>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_height="0dp"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
 

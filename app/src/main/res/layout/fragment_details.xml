@@ -1,79 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingStart="16dp"
-    android:paddingTop="16dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/details_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/details_date"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Today" />
+    <data>
 
-    <TextView
-        android:id="@+id/details_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:textColor="@color/lightGray"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/details_day"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="June 19"/>
+    </data>
 
-    <TextView
-        android:id="@+id/details_day_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:textSize="96sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/details_date"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="32dp"
-        tools:text="22\u00B0"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp">
 
-    <TextView
-        android:id="@+id/details_night_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:textSize="48sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/details_day_temp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="40dp"
-        tools:text="13\u00B0"/>
+        <TextView
+            android:id="@+id/details_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/details_date"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Today" />
 
-    <ImageView
-        android:id="@+id/details_pic"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:src="@drawable/ic__21_sun"
-        app:layout_constraintStart_toEndOf="@id/details_day_temp"
-        app:layout_constraintTop_toTopOf="@id/details_day_temp"
-        android:layout_margin="16dp"/>
+        <TextView
+            android:id="@+id/details_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/lightGray"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_day"
+            tools:text="June 19" />
 
-    <TextView
-        android:id="@+id/details_forecast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:textColor="@color/lightGray"
-        android:fontFamily="sans-serif-condensed"
-        app:layout_constraintTop_toBottomOf="@id/details_pic"
-        app:layout_constraintStart_toStartOf="@id/details_pic"
-        app:layout_constraintEnd_toEndOf="@id/details_pic"
-        tools:text="Clear" />
+        <TextView
+            android:id="@+id/details_day_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/black"
+            android:textSize="96sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_date"
+            tools:text="22\u00B0" />
+
+        <TextView
+            android:id="@+id/details_night_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/black"
+            android:textSize="48sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_day_temp"
+            tools:text="13\u00B0" />
+
+        <ImageView
+            android:id="@+id/details_pic"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic__21_sun"
+            app:layout_constraintStart_toEndOf="@id/details_day_temp"
+            app:layout_constraintTop_toTopOf="@id/details_day_temp" />
+
+        <TextView
+            android:id="@+id/details_forecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/lightGray"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@id/details_pic"
+            app:layout_constraintStart_toStartOf="@id/details_pic"
+            app:layout_constraintTop_toBottomOf="@id/details_pic"
+            tools:text="Clear" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/details_night_temp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/humidity"
+                    android:textSize="22sp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:paddingStart="10dp"
+                    android:textSize="22sp"
+                    tools:text="71%"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/pressure"
+                    android:textSize="22sp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:paddingStart="10dp"
+                    android:textSize="22sp"
+                    tools:text="1016 hPa"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/wind"
+                    android:textSize="22sp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:paddingStart="10dp"
+                    android:textSize="22sp"
+                    tools:text="2 km/h NW"/>
+            </LinearLayout>
+        </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
