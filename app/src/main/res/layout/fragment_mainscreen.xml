@@ -19,7 +19,6 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
-            android:theme="@style/Theme.Weather"
             app:navigationIcon="@drawable/ic__21_sun_logo">
 
             <TextView
