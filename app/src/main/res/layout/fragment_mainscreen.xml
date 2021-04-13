@@ -116,6 +116,17 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <TextView
+            android:id="@+id/testtext"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingTop="20dp"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            />
+
 
     </LinearLayout>
 </layout>

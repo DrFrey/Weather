@@ -10,7 +10,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.weather.WeatherApi
 import com.google.android.gms.location.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 
@@ -20,6 +24,8 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     var lon: Double = 0.0
     var locationPermissionGranted: Boolean = false
 
+    var weather: String = ""
+
     var locationManager: LocationManager
     var fusedLocationClient: FusedLocationProviderClient
 
@@ -28,10 +34,15 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     val locationReceived: LiveData<Boolean>
         get() = _locationReceived
 
+    private val _weatherReceived = MutableLiveData<Boolean>()
+    val weatherReceived: LiveData<Boolean>
+        get() = _weatherReceived
+
     init {
         currentDate = LocalDateTime.now()
         locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
+        _weatherReceived.value = false
     }
 
     fun isLocationEnabled(): Boolean {
@@ -45,7 +56,7 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
         if (locationPermissionGranted) {
             Log.d("___W", "getting location")
             fusedLocationClient.lastLocation.addOnCompleteListener() { task ->
-                val location: Location?  = task.result
+                val location: Location? = task.result
                 if (location == null) {
                     getNewLocationData()
                 } else {
@@ -66,7 +77,11 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
         locationRequest.fastestInterval = 0
         locationRequest.numUpdates = 1
 
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        )
     }
 
     private val locationCallback = object : LocationCallback() {
@@ -79,4 +94,16 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
         }
     }
 
+    fun getWeather(lat: Double, lon: Double) {
+        viewModelScope.launch {
+            try {
+
+                weather = WeatherApi.retrofitService.getWeather(lat, lon)
+                _weatherReceived.value = true
+                Log.d("___W", "response: $weather")
+            } catch (e: Exception) {
+                Log.d("___W", "Exception: ${e.message}")
+            }
+        }
+    }
 }

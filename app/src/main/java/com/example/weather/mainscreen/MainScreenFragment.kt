@@ -21,7 +21,6 @@ class MainScreenFragment : Fragment() {
 
     companion object {
         const val REQUEST_FOR_LOCATION_PERMISSION = 44
-        const val LOGTAG = "LOGTAG"
     }
 
     override fun onCreateView(
@@ -57,6 +56,13 @@ class MainScreenFragment : Fragment() {
                     "Location: ${viewModel.lat} and ${viewModel.lon}",
                     Toast.LENGTH_LONG
                 ).show()
+                viewModel.getWeather(viewModel.lat, viewModel.lon)
+            }
+        })
+
+        viewModel.weatherReceived.observe(viewLifecycleOwner, {
+            if (it) {
+                binding.testtext.text = viewModel.weather
             }
         })
         return binding.root
