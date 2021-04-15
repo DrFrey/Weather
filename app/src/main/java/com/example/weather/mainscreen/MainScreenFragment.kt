@@ -13,11 +13,14 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weather.databinding.FragmentMainscreenBinding
 
 class MainScreenFragment : Fragment() {
     private lateinit var binding: FragmentMainscreenBinding
     private lateinit var viewModel: MainScreenViewModel
+    private lateinit var adapter: MainScreenAdapter
 
     companion object {
         const val REQUEST_FOR_LOCATION_PERMISSION = 44
@@ -62,7 +65,16 @@ class MainScreenFragment : Fragment() {
 
         viewModel.weatherReceived.observe(viewLifecycleOwner, {
             if (it) {
-                binding.testtext.text = viewModel.weather
+                binding.weatherData = viewModel.weather
+                val daily = viewModel.weather?.daily
+                if (daily != null) {
+                    adapter = MainScreenAdapter(daily.subList(1, daily.size-1))
+                    val layoutManager = LinearLayoutManager(context)
+                    val decoration = DividerItemDecoration(context, layoutManager.orientation)
+                    binding.recyclerView.layoutManager = layoutManager
+                    binding.recyclerView.addItemDecoration(decoration)
+                    binding.recyclerView.adapter = adapter
+                }
             }
         })
         return binding.root

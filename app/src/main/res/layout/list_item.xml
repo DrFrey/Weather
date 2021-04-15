@@ -1,69 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/list_pic"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="14dp"
-        android:src="@drawable/ic__21_sun"/>
+    <data>
+        <variable
+            name="weatherData"
+            type="com.example.weather.data.Daily" />
+    </data>
 
     <LinearLayout
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/list_date"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/list_pic"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="14dp"
+            app:imageUrl="@{weatherData.weather[0].icon}" />
+
+        <LinearLayout
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="bottom"
-            android:text="Tomorrow"
-            tools:text="Tomorrow"/>
-        <TextView
-            android:id="@+id/list_forecast"
-            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/list_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="bottom"
+                tools:text="Tomorrow"
+                app:formattedDateTime="@{weatherData.dt}"/>
+
+            <TextView
+                android:id="@+id/list_forecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="bottom"
+                android:text="@{weatherData.weather[0].main}"
+                tools:text="Clear" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="bottom"
-            android:text="Clear"
-            tools:text="Clear"/>
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/list_day_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="bottom|center_horizontal"
+                tools:text="18\u00B0"
+                app:convertTemp="@{weatherData.temp.day}"/>
+
+            <TextView
+                android:id="@+id/list_night_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="bottom|center_horizontal"
+                tools:text="12\u00B0"
+                app:convertTemp="@{weatherData.temp.night}"/>
+        </LinearLayout>
+
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/list_day_temp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="bottom|center_horizontal"
-            android:text="18\u00B0"
-            tools:text="18\u00B0"/>
-        <TextView
-            android:id="@+id/list_night_temp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="bottom|center_horizontal"
-            android:text="12\u00B0"
-            tools:text="12\u00B0"/>
-    </LinearLayout>
-
-</LinearLayout>
+</layout>

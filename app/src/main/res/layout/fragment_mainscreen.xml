@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="weatherData"
+            type="com.example.weather.data.OpenWeatherData" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="100">
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -35,8 +37,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="30"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:orientation="horizontal">
 
@@ -54,10 +55,11 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center_vertical"
-                    android:text="Today, June 18"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="22sp"
-                    tools:text="Today, June 18" />
+                    tools:text="Today, June 18"
+                    app:formattedDateTime="@{weatherData.daily[0].dt}"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -65,10 +67,11 @@
                     android:layout_weight="2"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center_vertical"
-                    android:text="22\u00B0"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="72sp"
-                    tools:text="22\u00B0" />
+                    tools:text="22\u00B0"
+                    app:convertTemp="@{weatherData.current.temp}"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -76,10 +79,11 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center_vertical"
-                    android:text="13\u00B0"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="36sp"
-                    tools:text="13\u00B0" />
+                    tools:text="13\u00B0"
+                    app:convertTemp="@{weatherData.current.feelsLike}"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -94,7 +98,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic__21_sun" />
+                    app:imageUrl="@{weatherData.current.weather[0].icon}" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -102,30 +106,28 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center"
                     android:paddingTop="20dp"
-                    android:text="Clear"
+                    android:text="@{weatherData.current.weather[0].main}"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="22sp"
                     tools:text="Clear" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="top|center_horizontal"
+                    android:text="@{weatherData.current.weather[0].description}"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="14sp"
+                    tools:text="description" />
             </LinearLayout>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
+            android:layout_weight="70"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <TextView
-            android:id="@+id/testtext"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="30"
-            android:fontFamily="sans-serif-condensed"
-            android:paddingTop="20dp"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            />
+            android:layout_height="0dp" />
 
 
     </LinearLayout>

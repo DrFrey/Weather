@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.WeatherApi
+import com.example.weather.data.OpenWeatherData
 import com.google.android.gms.location.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     var lon: Double = 0.0
     var locationPermissionGranted: Boolean = false
 
-    var weather: String = ""
+    var weather: OpenWeatherData? = null
 
     var locationManager: LocationManager
     var fusedLocationClient: FusedLocationProviderClient
@@ -44,6 +45,7 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
         _weatherReceived.value = false
     }
+
 
     fun isLocationEnabled(): Boolean {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
@@ -97,7 +99,6 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     fun getWeather(lat: Double, lon: Double) {
         viewModelScope.launch {
             try {
-
                 weather = WeatherApi.retrofitService.getWeather(lat, lon)
                 _weatherReceived.value = true
                 Log.d("___W", "response: $weather")
