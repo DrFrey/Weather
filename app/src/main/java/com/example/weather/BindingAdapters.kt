@@ -15,12 +15,13 @@ import kotlin.math.round
 
 @BindingAdapter("formattedDateTime")
 fun setFormattedDateTime(textView: TextView, dateLong: Long?) {
+
     if (dateLong == null) {
-        textView.text = LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
+        textView.text = LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM"))
     } else {
         try {
             val ld = Instant.ofEpochSecond(dateLong).atZone(ZoneId.systemDefault()).toLocalDate()
-            val formattedDate = ld.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
+            val formattedDate = ld.format(DateTimeFormatter.ofPattern("d MMMM"))
             Log.d("___W", "formatted date: $formattedDate")
             textView.text = formattedDate
         } catch (e: Exception) {
@@ -36,7 +37,7 @@ fun setDegrees(textView: TextView, temp: Double) {
     textView.text = "${res}\u00B0"
 }
 
-@BindingAdapter("imageUrl")
+@BindingAdapter("loadWeatherIcon")
 fun loadImage(imageView: ImageView, url: String?) {
     if (!url.isNullOrEmpty()) {
         val finalUrl = "https://openweathermap.org/img/wn/" + url + "@2x.png"
