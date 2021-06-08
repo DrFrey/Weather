@@ -10,6 +10,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/daily_list_layout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

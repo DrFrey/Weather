@@ -7,9 +7,17 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.weather.detailscreen.DetailFragment"
-        android:label="DetailFragment" />
+        android:label="DetailFragment" >
+        <argument
+            android:name="dailyWeather"
+            app:argType="com.example.weather.data.Daily" />
+    </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="com.example.weather.mainscreen.MainScreenFragment"
-        android:label="MainScreenFragment" />
+        android:label="MainScreenFragment" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>

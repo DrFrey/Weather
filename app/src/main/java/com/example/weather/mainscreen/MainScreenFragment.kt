@@ -12,12 +12,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weather.databinding.FragmentMainscreenBinding
 
-class MainScreenFragment : Fragment() {
+class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
     private lateinit var binding: FragmentMainscreenBinding
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var adapter: MainScreenAdapter
@@ -50,8 +50,6 @@ class MainScreenFragment : Fragment() {
             requestPermission()
         }
 
-
-
         viewModel.locationReceived.observe(viewLifecycleOwner, {
             if (it) {
                 Toast.makeText(
@@ -63,18 +61,17 @@ class MainScreenFragment : Fragment() {
             }
         })
 
-        viewModel.weatherReceived.observe(viewLifecycleOwner, {
-            if (it) {
-                binding.weatherData = viewModel.weather
-                val daily = viewModel.weather?.daily
-                if (daily != null) {
-                    adapter = MainScreenAdapter(daily.subList(1, daily.size-1))
-                    val layoutManager = LinearLayoutManager(context)
-                    val decoration = DividerItemDecoration(context, layoutManager.orientation)
-                    binding.recyclerView.layoutManager = layoutManager
-                    binding.recyclerView.addItemDecoration(decoration)
-                    binding.recyclerView.adapter = adapter
-                }
+        viewModel.weather.observe(viewLifecycleOwner, {
+            binding.weatherData = it
+            val daily = it.daily
+            if (daily != null) {
+                adapter = MainScreenAdapter(daily.subList(1, daily.size-1))
+                val layoutManager = LinearLayoutManager(context)
+                val decoration = DividerItemDecoration(context, layoutManager.orientation)
+                binding.recyclerView.layoutManager = layoutManager
+                binding.recyclerView.addItemDecoration(decoration)
+                binding.recyclerView.adapter = adapter
+
             }
         })
         return binding.root
@@ -111,6 +108,10 @@ class MainScreenFragment : Fragment() {
             }
         }
     }
+
+    override fun onItemClick(position: Int) {
+        Log.d("___W", "position clicked: $position")
+        val dailyWeather = viewModel.weather.value?.daily?.get(position)
+        this.findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToDetailFragment(dailyWeather))
+    }
 }
-
-

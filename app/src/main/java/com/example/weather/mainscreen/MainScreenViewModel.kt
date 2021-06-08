@@ -14,7 +14,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.weather.WeatherApi
 import com.example.weather.data.OpenWeatherData
 import com.google.android.gms.location.*
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
@@ -25,8 +24,6 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     var lon: Double = 0.0
     var locationPermissionGranted: Boolean = false
 
-    var weather: OpenWeatherData? = null
-
     var locationManager: LocationManager
     var fusedLocationClient: FusedLocationProviderClient
 
@@ -35,15 +32,14 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     val locationReceived: LiveData<Boolean>
         get() = _locationReceived
 
-    private val _weatherReceived = MutableLiveData<Boolean>()
-    val weatherReceived: LiveData<Boolean>
-        get() = _weatherReceived
+    private val _weather = MutableLiveData<OpenWeatherData>()
+    val weather: LiveData<OpenWeatherData>
+        get() = _weather
 
     init {
         currentDate = LocalDateTime.now()
         locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
-        _weatherReceived.value = false
     }
 
 
@@ -99,9 +95,8 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     fun getWeather(lat: Double, lon: Double) {
         viewModelScope.launch {
             try {
-                weather = WeatherApi.retrofitService.getWeather(lat, lon)
-                _weatherReceived.value = true
-                Log.d("___W", "response: $weather")
+                _weather.value = WeatherApi.retrofitService.getWeather(lat, lon)
+                Log.d("___W", "response: ${weather.value}")
             } catch (e: Exception) {
                 Log.d("___W", "Exception: ${e.message}")
             }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sunshine</string>
+    <string name="humidity">Влажность:</string>
+    <string name="pressure">Давление:</string>
+    <string name="wind">Ветер:</string>
+    <string name="today">Сегодня</string>
+</resources>

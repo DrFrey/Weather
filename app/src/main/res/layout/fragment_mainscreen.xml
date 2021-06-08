@@ -57,8 +57,8 @@
                     android:gravity="center_vertical"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="22sp"
+                    android:text="@string/today"
                     tools:text="Today, June 18"
-                    app:formattedDateTime="@{weatherData.daily[0].dt}"
                     />
 
                 <TextView
