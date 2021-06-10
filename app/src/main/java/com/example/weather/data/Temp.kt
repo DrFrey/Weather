@@ -1,9 +1,12 @@
 package com.example.weather.data
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Temp(
     @Json(name = "day")
@@ -18,4 +21,4 @@ data class Temp(
     val morn: Double?,
     @Json(name = "night")
     val night: Double?
-)
+) : Parcelable

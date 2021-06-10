@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="dailyWeather"
+            type="com.example.weather.data.Daily" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +35,8 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/details_day"
-            tools:text="June 19" />
+            tools:text="June 19"
+            app:formattedDateTime="@{dailyWeather.dt}"/>
 
         <TextView
             android:id="@+id/details_day_temp"
@@ -46,7 +49,8 @@
             android:textSize="96sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/details_date"
-            tools:text="22\u00B0" />
+            tools:text="22\u00B0"
+            app:convertTemp="@{dailyWeather.temp.day}"/>
 
         <TextView
             android:id="@+id/details_night_temp"
@@ -58,7 +62,8 @@
             android:textSize="48sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/details_day_temp"
-            tools:text="13\u00B0" />
+            tools:text="13\u00B0"
+            app:convertTemp="@{dailyWeather.temp.night}"/>
 
         <ImageView
             android:id="@+id/details_pic"
@@ -67,7 +72,8 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic__21_sun"
             app:layout_constraintStart_toEndOf="@id/details_day_temp"
-            app:layout_constraintTop_toTopOf="@id/details_day_temp" />
+            app:layout_constraintTop_toTopOf="@id/details_day_temp"
+            app:loadWeatherIcon="@{dailyWeather.weather.get(0).icon}"/>
 
         <TextView
             android:id="@+id/details_forecast"
@@ -105,7 +111,8 @@
                     android:fontFamily="sans-serif-light"
                     android:paddingStart="10dp"
                     android:textSize="22sp"
-                    tools:text="71%"/>
+                    tools:text="71%"
+                    android:text="@{dailyWeather.humidity.toString()}"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -124,7 +131,8 @@
                     android:fontFamily="sans-serif-light"
                     android:paddingStart="10dp"
                     android:textSize="22sp"
-                    tools:text="1016 hPa"/>
+                    tools:text="1016 hPa"
+                    android:text="@{dailyWeather.pressure.toString()}"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,7 +151,8 @@
                     android:fontFamily="sans-serif-light"
                     android:paddingStart="10dp"
                     android:textSize="22sp"
-                    tools:text="2 km/h NW"/>
+                    tools:text="2 km/h NW"
+                    android:text="@{dailyWeather.windSpeed.toString()}"/>
             </LinearLayout>
         </LinearLayout>
 

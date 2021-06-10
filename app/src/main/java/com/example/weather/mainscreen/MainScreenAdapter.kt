@@ -2,11 +2,14 @@ package com.example.weather.mainscreen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.data.Daily
+import com.example.weather.data.Weather
 import com.example.weather.databinding.ListItemBinding
 
-class MainScreenAdapter(private val weather: List<Daily>) : RecyclerView.Adapter<MainScreenAdapter.MainScreenViewHolder>() {
+class MainScreenAdapter : ListAdapter<Daily, MainScreenAdapter.MainScreenViewHolder>(WeatherItemDiffCallback()) {
 
     private var clickListener: OnItemClickListener? = null
 
@@ -37,15 +40,22 @@ class MainScreenAdapter(private val weather: List<Daily>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: MainScreenViewHolder, position: Int) {
-        holder.bind(weather[position])
-    }
-
-    override fun getItemCount(): Int {
-        return weather.size
+        holder.bind(getItem(position))
     }
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
+    }
+
+    class WeatherItemDiffCallback : DiffUtil.ItemCallback<Daily>(){
+        override fun areItemsTheSame(oldItem: Daily, newItem: Daily): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Daily, newItem: Daily): Boolean {
+            return oldItem == newItem
+        }
+
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {

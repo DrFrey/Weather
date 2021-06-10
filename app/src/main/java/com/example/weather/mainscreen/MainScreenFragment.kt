@@ -33,6 +33,13 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
     ): View {
         binding = FragmentMainscreenBinding.inflate(inflater)
         viewModel = MainScreenViewModel(requireActivity())
+        adapter = MainScreenAdapter()
+
+        val layoutManager = LinearLayoutManager(context)
+        val decoration = DividerItemDecoration(context, layoutManager.orientation)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.addItemDecoration(decoration)
+        binding.recyclerView.adapter = adapter
 
         if (checkPermission()) {
             viewModel.locationPermissionGranted = true
@@ -65,15 +72,12 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
             binding.weatherData = it
             val daily = it.daily
             if (daily != null) {
-                adapter = MainScreenAdapter(daily.subList(1, daily.size-1))
-                val layoutManager = LinearLayoutManager(context)
-                val decoration = DividerItemDecoration(context, layoutManager.orientation)
-                binding.recyclerView.layoutManager = layoutManager
-                binding.recyclerView.addItemDecoration(decoration)
-                binding.recyclerView.adapter = adapter
-
+                val list = daily.subList(1, daily.size-1)
+                adapter.submitList(list)
             }
         })
+
+        adapter.setOnItemClickListener(this)
         return binding.root
     }
 
@@ -112,6 +116,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
     override fun onItemClick(position: Int) {
         Log.d("___W", "position clicked: $position")
         val dailyWeather = viewModel.weather.value?.daily?.get(position)
-        this.findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToDetailFragment(dailyWeather))
+        Log.d("___W", "weather clicked: $dailyWeather")
+        this.findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToDetailFragment(dailyWeather!!))
     }
 }
