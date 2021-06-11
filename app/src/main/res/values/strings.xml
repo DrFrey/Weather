@@ -4,4 +4,6 @@
     <string name="pressure">Pressure:</string>
     <string name="wind">Wind:</string>
     <string name="today">Today</string>
+    <string name="windSpeed">m/s</string>
+    <string name="pressureUnits">hPa</string>
 </resources>

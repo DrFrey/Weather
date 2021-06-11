@@ -11,6 +11,8 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.time.format.TextStyle
+import java.util.*
 import kotlin.math.round
 
 @BindingAdapter("formattedDateTime")
@@ -26,6 +28,22 @@ fun setFormattedDateTime(textView: TextView, dateLong: Long?) {
             textView.text = formattedDate
         } catch (e: Exception) {
             textView.text = dateLong.toString()
+            Log.d("___W", "error formatting date: ${e.message}")
+        }
+    }
+}
+
+@BindingAdapter("dayOfWeek")
+fun dayOfWeek(textView: TextView, dateLong: Long?){
+    if (dateLong == null) {
+        textView.text = ""
+    } else {
+        try {
+            val ld = Instant.ofEpochSecond(dateLong).atZone(ZoneId.systemDefault()).toLocalDate()
+            Log.d("___W", "day of week: ${ld.dayOfWeek}")
+            textView.text = ld.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()).uppercase()
+        } catch (e: Exception) {
+            textView.text = ""
             Log.d("___W", "error formatting date: ${e.message}")
         }
     }

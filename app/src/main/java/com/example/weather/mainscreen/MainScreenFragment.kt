@@ -77,6 +77,11 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
             }
         })
 
+        binding.todayLL.setOnClickListener {
+            val todayWeather = viewModel.weather.value?.daily?.get(0)
+            Log.d("___W", "today weather clicked: $todayWeather")
+            this.findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToDetailFragment(todayWeather!!))
+        }
         adapter.setOnItemClickListener(this)
         return binding.root
     }
@@ -115,7 +120,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
 
     override fun onItemClick(position: Int) {
         Log.d("___W", "position clicked: $position")
-        val dailyWeather = viewModel.weather.value?.daily?.get(position)
+        val dailyWeather = viewModel.weather.value?.daily?.get(position+1)
         Log.d("___W", "weather clicked: $dailyWeather")
         this.findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToDetailFragment(dailyWeather!!))
     }
