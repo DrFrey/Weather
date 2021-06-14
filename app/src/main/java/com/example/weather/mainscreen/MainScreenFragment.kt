@@ -16,11 +16,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weather.databinding.FragmentMainscreenBinding
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.LatLng
 
-class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
+class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, OnMapReadyCallback {
     private lateinit var binding: FragmentMainscreenBinding
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var adapter: MainScreenAdapter
+    private lateinit var map: GoogleMap
+    private lateinit var mapView: MapView
 
     companion object {
         const val REQUEST_FOR_LOCATION_PERMISSION = 44
@@ -40,6 +44,10 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.addItemDecoration(decoration)
         binding.recyclerView.adapter = adapter
+
+        mapView = binding.map
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync(this)
 
         if (checkPermission()) {
             viewModel.locationPermissionGranted = true
@@ -64,6 +72,13 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
                     "Location: ${viewModel.lat} and ${viewModel.lon}",
                     Toast.LENGTH_LONG
                 ).show()
+                val userLocation = LatLng(viewModel.lat, viewModel.lon)
+                map.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        userLocation,
+                        10f
+                    )
+                )
                 viewModel.getWeather(viewModel.lat, viewModel.lon)
             }
         })
@@ -83,6 +98,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
             this.findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToDetailFragment(todayWeather!!))
         }
         adapter.setOnItemClickListener(this)
+
         return binding.root
     }
 
@@ -123,5 +139,40 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener {
         val dailyWeather = viewModel.weather.value?.daily?.get(position+1)
         Log.d("___W", "weather clicked: $dailyWeather")
         this.findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToDetailFragment(dailyWeather!!))
+    }
+
+    override fun onMapReady(map: GoogleMap) {
+        this.map = map
+        Log.d("___W", "map is ready")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mapView.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView.onStop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
     }
 }

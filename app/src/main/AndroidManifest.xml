@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Weather.NoActionBar">
 
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAyhyYxpxjDLbC2VJzRUhmaADhpdCSU12U"/>
+
         <activity android:name=".MainActivity">
 
             <intent-filter>

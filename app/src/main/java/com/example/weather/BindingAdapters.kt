@@ -24,7 +24,7 @@ fun setFormattedDateTime(textView: TextView, dateLong: Long?) {
         try {
             val ld = Instant.ofEpochSecond(dateLong).atZone(ZoneId.systemDefault()).toLocalDate()
             val formattedDate = ld.format(DateTimeFormatter.ofPattern("d MMMM"))
-            Log.d("___W", "formatted date: $formattedDate")
+            //Log.d("___W", "formatted date: $formattedDate")
             textView.text = formattedDate
         } catch (e: Exception) {
             textView.text = dateLong.toString()

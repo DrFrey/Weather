@@ -53,7 +53,7 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     fun getLocation() {
         if (locationPermissionGranted) {
             Log.d("___W", "getting location")
-            fusedLocationClient.lastLocation.addOnCompleteListener() { task ->
+            fusedLocationClient.lastLocation.addOnCompleteListener { task ->
                 val location: Location? = task.result
                 if (location == null) {
                     getNewLocationData()
