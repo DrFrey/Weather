@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weather.databinding.FragmentMainscreenBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, OnMapReadyCallback {
     private lateinit var binding: FragmentMainscreenBinding
@@ -67,17 +68,17 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
 
         viewModel.locationReceived.observe(viewLifecycleOwner, {
             if (it) {
-                Toast.makeText(
-                    requireContext(),
-                    "Location: ${viewModel.lat} and ${viewModel.lon}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Log.d("___W", "Location: ${viewModel.lat} and ${viewModel.lon}")
                 val userLocation = LatLng(viewModel.lat, viewModel.lon)
                 map.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         userLocation,
-                        10f
+                        12f
                     )
+                )
+                map.addMarker(
+                    MarkerOptions()
+                        .position(userLocation)
                 )
                 viewModel.getWeather(viewModel.lat, viewModel.lon)
             }
@@ -146,6 +147,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
         Log.d("___W", "map is ready")
     }
 
+    //методы, необходимые для MapView
     override fun onStart() {
         super.onStart()
         mapView.onStart()
