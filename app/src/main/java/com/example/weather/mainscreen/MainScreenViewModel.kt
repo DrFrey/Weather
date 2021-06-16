@@ -36,6 +36,7 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     val weather: LiveData<OpenWeatherData>
         get() = _weather
 
+
     init {
         currentDate = LocalDateTime.now()
         locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager

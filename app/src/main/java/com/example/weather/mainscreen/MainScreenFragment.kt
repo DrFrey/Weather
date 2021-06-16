@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.example.weather.databinding.FragmentMainscreenBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, OnMapReadyCallback {
     private lateinit var binding: FragmentMainscreenBinding
@@ -49,6 +51,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
         mapView = binding.map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+
 
         if (checkPermission()) {
             viewModel.locationPermissionGranted = true
@@ -91,6 +94,16 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
                 val list = daily.subList(1, daily.size-1)
                 adapter.submitList(list)
             }
+            val alerts = it.alerts
+            if (alerts != null) {
+                binding.alertIcon.visibility = View.VISIBLE
+                binding.alertIcon.setOnClickListener {
+                    val dialog = AlertDisplayDialog.newInstance(ArrayList(alerts))
+                    dialog.show(requireActivity().supportFragmentManager, null)
+                }
+            } else {
+                binding.alertIcon.visibility = View.GONE
+            }
         })
 
         binding.todayLL.setOnClickListener {
@@ -102,6 +115,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
 
         return binding.root
     }
+
 
     private fun checkPermission() : Boolean {
         Log.d("___W", "checking permission")
