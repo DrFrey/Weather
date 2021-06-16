@@ -16,6 +16,7 @@ import com.example.weather.data.OpenWeatherData
 import com.google.android.gms.location.*
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
+import java.util.*
 
 
 class MainScreenViewModel(activity: Activity) : ViewModel() {
@@ -96,7 +97,12 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     fun getWeather(lat: Double, lon: Double) {
         viewModelScope.launch {
             try {
-                _weather.value = WeatherApi.retrofitService.getWeather(lat, lon)
+                if (Locale.getDefault().displayLanguage == "русский") {
+                    Log.d("___W", "Locale.getDefault().displayLanguage == ${Locale.getDefault().displayLanguage}")
+                    _weather.value = WeatherApi.retrofitService.getWeather(lat = lat, lon = lon, lang = "ru")
+                } else {
+                    _weather.value = WeatherApi.retrofitService.getWeather(lat, lon)
+                }
                 Log.d("___W", "response: ${weather.value}")
             } catch (e: Exception) {
                 Log.d("___W", "Exception: ${e.message}")
