@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="weatherData"
             type="com.example.weather.data.OpenWeatherData" />
@@ -13,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -39,8 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/currentWeatherTextLL"
@@ -51,54 +53,51 @@
                     android:id="@+id/todayTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center_vertical"
+                    android:paddingStart="60dp"
+                    android:text="@string/today"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="22sp"
-                    android:text="@string/today"
-                    tools:text="Today, June 18"
-                    android:layout_alignParentTop="true"
-                    android:paddingStart="60dp"
-                    />
+                    tools:text="Today, June 18" />
 
                 <TextView
                     android:id="@+id/currTempTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/todayTV"
+                    android:layout_alignStart="@+id/todayTV"
+                    android:layout_centerInParent="true"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center_vertical"
+                    android:paddingStart="60dp"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="72sp"
-                    tools:text="22\u00B0"
                     app:convertTemp="@{weatherData.current.temp}"
-                    android:layout_centerInParent="true"
-                    android:layout_alignStart="@+id/todayTV"
-                    android:layout_below="@+id/todayTV"
-                    android:paddingStart="60dp"
-                    />
+                    tools:text="22\u00B0" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center_vertical"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="36sp"
-                    tools:text="13\u00B0"
-                    app:convertTemp="@{weatherData.current.feelsLike}"
                     android:layout_below="@+id/currTempTV"
                     android:layout_alignStart="@+id/todayTV"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_vertical"
                     android:paddingStart="60dp"
-                    />
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="36sp"
+                    app:convertTemp="@{weatherData.current.feelsLike}"
+                    tools:text="13\u00B0" />
 
                 <ImageView
                     android:id="@+id/alertIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_round_warning_24"
                     android:layout_centerVertical="true"
                     android:paddingStart="10dp"
-                    android:visibility="gone"/>
+                    android:src="@drawable/ic_round_warning_24"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <LinearLayout
@@ -139,15 +138,20 @@
         </LinearLayout>
 
         <com.google.android.gms.maps.MapView
+            android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/map" />
+            android:layout_height="100dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            android:id="@+id/swipeToRefreshLayout">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 </layout>
