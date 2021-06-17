@@ -6,21 +6,18 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.weather.databinding.FragmentMainscreenBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.tabs.TabLayoutMediator
 
 class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, OnMapReadyCallback {
     private lateinit var binding: FragmentMainscreenBinding
@@ -28,6 +25,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
     private lateinit var adapter: MainScreenAdapter
     private lateinit var map: GoogleMap
     private lateinit var mapView: MapView
+    private lateinit var mySwipeRefreshLayout: SwipeRefreshLayout
 
     companion object {
         const val REQUEST_FOR_LOCATION_PERMISSION = 44
@@ -52,6 +50,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+        mySwipeRefreshLayout = binding.swipeToRefreshLayout
 
         if (checkPermission()) {
             viewModel.locationPermissionGranted = true
@@ -83,6 +82,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
                     MarkerOptions()
                         .position(userLocation)
                 )
+                mySwipeRefreshLayout.isRefreshing = true
                 viewModel.getWeather(viewModel.lat, viewModel.lon)
             }
         })
@@ -104,6 +104,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
             } else {
                 binding.alertIcon.visibility = View.GONE
             }
+            mySwipeRefreshLayout.isRefreshing = false
         })
 
         binding.todayLL.setOnClickListener {
@@ -113,7 +114,30 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
         }
         adapter.setOnItemClickListener(this)
 
+        setHasOptionsMenu(true)
+
+        mySwipeRefreshLayout.setOnRefreshListener {
+            Log.d("___W", "refresh menu selected")
+            viewModel.getWeather(viewModel.lat, viewModel.lon)
+        }
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(com.example.weather.R.menu.menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            com.example.weather.R.id.menu_refresh -> {
+                Log.d("___W", "refresh menu selected")
+                mySwipeRefreshLayout.isRefreshing = true
+                viewModel.getWeather(viewModel.lat, viewModel.lon)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
