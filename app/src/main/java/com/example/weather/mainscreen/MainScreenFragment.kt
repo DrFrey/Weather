@@ -94,7 +94,7 @@ class MainScreenFragment : Fragment(), MainScreenAdapter.OnItemClickListener, On
                 val list = daily.subList(1, daily.size-1)
                 adapter.submitList(list)
             }
-            val alerts = it.alerts
+            val alerts = it.alerts?.filter { alert -> alert.description?.isNotEmpty() == true }
             if (alerts != null) {
                 binding.alertIcon.visibility = View.VISIBLE
                 binding.alertIcon.setOnClickListener {

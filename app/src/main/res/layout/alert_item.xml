@@ -15,8 +15,9 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
+            android:textAlignment="center"
             android:padding="10dp"
             android:text="@{alert.description}"
             android:textSize="22sp"

@@ -22,11 +22,12 @@ class AlertDisplayDialog : DialogFragment() {
         adapter = AlertAdapter()
         adapter.submitList(alerts)
         binding.alertViewPager.adapter = adapter
-        TabLayoutMediator(binding.alertTabLayout, binding.alertViewPager) {tab, pos -> }.attach()
+        TabLayoutMediator(binding.alertTabLayout, binding.alertViewPager) { _, _ -> }.attach()
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(binding.root)
             .create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         return dialog
     }
 
