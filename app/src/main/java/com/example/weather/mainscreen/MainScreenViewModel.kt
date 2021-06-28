@@ -97,12 +97,7 @@ class MainScreenViewModel(activity: Activity) : ViewModel() {
     fun getWeather(lat: Double, lon: Double) {
         viewModelScope.launch {
             try {
-                /*if (Locale.getDefault().displayLanguage == "русский") {
-                    Log.d("___W", "Locale.getDefault().displayLanguage == ${Locale.getDefault().displayLanguage}")
-                    _weather.value = WeatherApi.retrofitService.getWeather(lat = lat, lon = lon, lang = "ru")
-                } else {*/
-                    _weather.value = WeatherApi.retrofitService.getWeather(lat, lon)
-                //}
+                _weather.value = WeatherApi.retrofitService.getWeather(lat, lon)
                 Log.d("___W", "response: ${weather.value}")
             } catch (e: Exception) {
                 Log.d("___W", "Exception: ${e.message}")

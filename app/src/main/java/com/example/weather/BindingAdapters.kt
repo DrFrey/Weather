@@ -63,11 +63,11 @@ fun loadImage(imageView: ImageView, url: String?) {
             .load(finalUrl)
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.ic__21_sun)
+                    .placeholder(R.drawable.loading_rotate)
                     .error(R.drawable.ic_round_signal_wifi_off_24)
             )
             .into(imageView)
     } else {
-        imageView.setImageResource(R.drawable.ic__21_sun)
+        imageView.setImageResource(R.drawable.loading_rotate)
     }
 }

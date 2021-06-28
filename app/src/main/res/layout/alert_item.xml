@@ -16,10 +16,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:fontFamily="sans-serif-condensed"
-            android:textAlignment="center"
             android:padding="10dp"
             android:text="@{alert.description}"
+            android:textAlignment="center"
+            android:textColor="?colorOnPrimary"
             android:textSize="22sp"
             tools:text="alert text" />
     </ScrollView>
